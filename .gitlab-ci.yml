@@ -1,0 +1,8 @@
+
+stages:
+  - perform
+
+maven-prepare:
+  stage: perform
+  script:
+    - "env"
