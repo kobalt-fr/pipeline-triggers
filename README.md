@@ -25,6 +25,13 @@ To add a new repository mirroring, perform the following steps:
   * replace \<prefix\> by your prefix
   * replace \<TOKEN\> with a token from https://gitlab.tools.kobalt.fr/kobalt/pipeline-triggers/settings/ci_cd
 
+## Update repository
+
+To keep all branches in sync:
+
+* perform change *only* on master branch
+* use ``./sync-master.sh`` to overwrite all branches master status (``reset --hard``)
+
 ## References
 
 * gitlab personal tokens management: https://gitlab.tools.kobalt.fr/profile/personal_access_tokens
