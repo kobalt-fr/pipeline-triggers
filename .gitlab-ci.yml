@@ -2,7 +2,14 @@
 stages:
   - perform
 
-maven-prepare:
+# check if MIRROR_REPOSITORY is set; if set, mirror repository
+# from ${MIRROR_REPOSITORY}_SRC_REPO to ${MIRROR_REPOSITORY}_DEST_REPO
+# this variables must be configured in gitlab
+perform:
   stage: perform
   script:
-    - "env"
+    - |
+        # MIRROR_REPOSITORY -> launch mirror.sh
+        # no MIRROR_REPOSITORY -> message if not triggered; error if triggered
+        { [ -n "${MIRROR_REPOSITORY}" ] && ./mirror.sh "${MIRROR_REPOSITORY}"; } || \
+        { [ -z "${MIRROR_REPOSITORY}" ] && echo "no MIRROR_REPOSITORY set. Nothing done." && exit [ "${CI_PIPELINE_TRIGGERED}" != "true" ]; }
