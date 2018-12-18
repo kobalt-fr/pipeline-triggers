@@ -23,7 +23,7 @@ pushd "${MIRROR_REPOSITORY}"
   git fetch -p origin || git clone --bare "${SRC}" .
   
   echo "Fetching ${DEST}"
-  git fetch -p dest || git remote add dest "${DEST}" .
+  git fetch -p dest || git remote add dest "${DEST}"
   
   echo "Pushing to ${DEST}"
   git push dest --mirror
