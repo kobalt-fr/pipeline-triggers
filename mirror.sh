@@ -13,6 +13,6 @@ if [ -z "${VAR_SRC_REPO}" -o -z "${VAR_DEST_REPO}" ]; then
   exit 1;
 fi
 
-git fetch -p src || git clone -o src --bare "${SRC}"
+git fetch -p origin || git clone --bare "${SRC}"
 git fetch -p dest || git remote add dest "${DEST}"
 git push dest --mirror
