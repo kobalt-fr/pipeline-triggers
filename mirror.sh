@@ -19,7 +19,7 @@ echo "Mirroring ${SRC} > ${DEST} in ${MIRROR_REPOSITORY}"
 
 # as script is run inside a git repo, we need to enforce
 # git-dir value
-_git="git --git-dir .git"
+alias _git="git --git-dir .git"
 
 pushd "${MIRROR_REPOSITORY}"
 {
