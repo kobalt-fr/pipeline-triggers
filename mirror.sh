@@ -2,6 +2,13 @@
 
 set -e
 
+MIRROR_REPOSITORY="${1}"
+
+if [ -z "${MIRROR_REPOSITORY}" ]; then
+  echo "No repository provided as first argument. Aborting."
+  exit 1
+fi
+
 VAR_SRC_REPO=${MIRROR_REPOSITORY}_SRC_REPO
 VAR_DEST_REPO=${MIRROR_REPOSITORY}_DEST_REPO
 
@@ -10,7 +17,7 @@ DEST=${!VAR_DEST_REPO}
 
 if [ -z "${SRC}" -o -z "${DEST}" ]; then
   echo "${VAR_SRC_REPO} or ${VAR_DEST_REPO} is not set. Aborting."
-  exit 1;
+  exit 1
 fi
 
 mkdir -p "${MIRROR_REPOSITORY}"

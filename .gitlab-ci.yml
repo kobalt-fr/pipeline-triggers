@@ -2,14 +2,16 @@
 stages:
   - perform
 
-# check if MIRROR_REPOSITORY is set; if set, mirror repository
-# from ${MIRROR_REPOSITORY}_SRC_REPO to ${MIRROR_REPOSITORY}_DEST_REPO
+# check if CI_BUILD_REF_NAME or MIRROR_REPOSITORY is set;
+# CI_BUILD_REF_NAME must be of format mirror-${MIRROR_REPOSITORY}
+# if set, mirror repository from ${MIRROR_REPOSITORY}_SRC_REPO to ${MIRROR_REPOSITORY}_DEST_REPO
 # this variables must be configured in gitlab
 perform:
   stage: perform
   script:
     - |
-        # MIRROR_REPOSITORY -> launch mirror.sh
-        # no MIRROR_REPOSITORY -> message if not triggered; error if triggered
+        # MIRROR_REPOSITORY/CI_BUILD_REF_NAME(mirror-*) -> launch mirror.sh
+        # no MIRROR_REPOSITORY -> message if not pipeline-triggered; else error
+        { [ -n "${CI_BUILD_REF_NAME}" -a "${CI_BUILD_REF_NAME%-*}" == "mirror" ] && ./mirror.sh "${CI_BUILD_REF_NAME#*-}"; } || \
         { [ -n "${MIRROR_REPOSITORY}" ] && ./mirror.sh "${MIRROR_REPOSITORY}"; } || \
         { [ -z "${MIRROR_REPOSITORY}" ] && echo "no MIRROR_REPOSITORY set. Nothing done." && [ "${CI_PIPELINE_TRIGGERED}" != "true" ]; }
