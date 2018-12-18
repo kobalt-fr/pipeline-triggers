@@ -8,11 +8,18 @@ VAR_DEST_REPO=${MIRROR_REPOSITORY}_DEST_REPO
 SRC=${!VAR_SRC_REPO}
 DEST=${!VAR_DEST_REPO}
 
-if [ -z "${VAR_SRC_REPO}" -o -z "${VAR_DEST_REPO}" ]; then
-  echo "${MIRROR_REPOSITORY}_SRC_REPO or ${MIRROR_REPOSITORY}_DEST_REPO is not set. Aborting."
+if [ -z "${SRC}" -o -z "${DEST}" ]; then
+  echo "${VAR_SRC_REPO} or ${VAR_DEST_REPO} is not set. Aborting."
   exit 1;
 fi
 
+echo "Mirroring ${SRC} > ${DEST}"
+
+echo "Fetching ${SRC}"
 git fetch -p origin || git clone --bare "${SRC}"
+
+echo "Fetching ${DEST}"
 git fetch -p dest || git remote add dest "${DEST}"
+
+echo "Pushing to ${DEST}"
 git push dest --mirror
