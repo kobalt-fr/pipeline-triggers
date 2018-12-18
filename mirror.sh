@@ -19,17 +19,17 @@ echo "Mirroring ${SRC} > ${DEST} in ${MIRROR_REPOSITORY}"
 
 # as script is run inside a git repo, we need to enforce
 # git-dir value
-alias _git="git --git-dir .git"
+_git="git --git-dir .git"
 
 pushd "${MIRROR_REPOSITORY}"
 {
   echo "Fetching ${SRC}"
-  _git fetch -p origin || _git clone --bare "${SRC}" .
+  $_git fetch -p origin || $_git clone --bare "${SRC}" .
   
   echo "Fetching ${DEST}"
-  _git fetch -p dest || _git remote add dest "${DEST}"
+  $_git fetch -p dest || $_git remote add dest "${DEST}"
   
   echo "Pushing to ${DEST}"
-  _git push dest --mirror
+  $_git push dest --mirror
 }
 popd
