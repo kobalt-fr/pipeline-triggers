@@ -22,15 +22,15 @@ SRC=${!VAR_SRC_REPO}
 SRC_USER=${!VAR_SRC_USER}
 SRC_TOKEN=${!VAR_SRC_TOKEN}
 AUTH_SRC="${SRC}"
-[[ -n "${SRC_USER}" && "${SRC}" =~ "%USER%" ]] && AUTH_SRC=${AUTH_SRC/%USER%/${SRC_USER}/} && echo "$SRC: %USER is set"
-[[ -n "${SRC_TOKEN}" && "${SRC}" =~ "%TOKEN%" ]] && AUTH_SRC=${AUTH_SRC/%TOKEN%/${SRC_TOKEN}/} && echo "$SRC: %TOKEN is set"
+[[ -n "${SRC_USER}" && "${SRC}" =~ "_USER_" ]] && AUTH_SRC=${AUTH_SRC/_USER_/${SRC_USER}} && echo "$SRC: _USER_ is set"
+[[ -n "${SRC_TOKEN}" && "${SRC}" =~ "_TOKEN_" ]] && AUTH_SRC=${AUTH_SRC/_TOKEN_/${SRC_TOKEN}} && echo "$SRC: _TOKEN_ is set"
 
 DEST=${!VAR_DEST_REPO}
 DEST_USER=${!VAR_DEST_USER}
 DEST_TOKEN=${!VAR_DEST_TOKEN}
 AUTH_DEST="${DEST}"
-[[ -n "${DEST_USER}" && "${DEST}" =~ "%USER%" ]] && AUTH_DEST=${AUTH_DEST/%USER%/${DEST_USER}/} && echo "$DEST: %USER is set"
-[[ -n "${DEST_TOKEN}" && "${DEST}" =~ "%TOKEN%" ]] && AUTH_DEST=${AUTH_DEST/%TOKEN%/${DEST_TOKEN}/} && echo "$DEST: %USER is set"
+[[ -n "${DEST_USER}" && "${DEST}" =~ "_USER_" ]] && AUTH_DEST=${AUTH_DEST/_USER_/${DEST_USER}} && echo "$DEST: _USER_ is set"
+[[ -n "${DEST_TOKEN}" && "${DEST}" =~ "_TOKEN_" ]] && AUTH_DEST=${AUTH_DEST/_TOKEN_/${DEST_TOKEN}} && echo "$DEST: _USER_ is set"
 
 if [ -z "${SRC}" -o -z "${DEST}" ]; then
   echo "${VAR_SRC_REPO} or ${VAR_DEST_REPO} is not set. Aborting."
