@@ -13,13 +13,19 @@ if [ -z "${SRC}" -o -z "${DEST}" ]; then
   exit 1;
 fi
 
-echo "Mirroring ${SRC} > ${DEST}"
+mkdir -p "${MIRROR_REPOSITORY}"
 
-echo "Fetching ${SRC}"
-git fetch -p origin || git clone --bare "${SRC}"
+echo "Mirroring ${SRC} > ${DEST} in ${MIRROR_REPOSITORY}"
 
-echo "Fetching ${DEST}"
-git fetch -p dest || git remote add dest "${DEST}"
-
-echo "Pushing to ${DEST}"
-git push dest --mirror
+pushd "${MIRROR_REPOSITORY}"
+{
+  echo "Fetching ${SRC}"
+  git fetch -p origin || git clone --bare "${SRC}" .
+  
+  echo "Fetching ${DEST}"
+  git fetch -p dest || git remote add dest "${DEST}" .
+  
+  echo "Pushing to ${DEST}"
+  git push dest --mirror
+}
+popd
